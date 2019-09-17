@@ -1,0 +1,10 @@
+version: '3.7'
+services:
+  hello-world:
+    image: okteto/udemy:hello-world
+    build: .
+  dev:
+    image: okteto/udemy:hello-world-dev
+    build:
+      context: .
+      target: builder

@@ -1,0 +1,8 @@
+name: hello-world
+image: okteto/udemy:hello-world-dev
+workdir: /src
+command: ["bash"]
+volumes:
+  - /go/pkg
+  - /root/.cache/go-build
+  - /root/.vscode-server

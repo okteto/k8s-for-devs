@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: configmapvars
+  labels:
+    app: configmapvars
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: configmapvars
+  template:
+    metadata:
+      labels:
+        app: configmapvars
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+        env:
+        - name: VAR
+          valueFrom:
+            configMapKeyRef:
+              name: sample
+              key: k2
+#        envFrom:
+#          - configMapRef:
+#              name: sample

@@ -1,0 +1,130 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+  name: ingress
+spec:
+  rules:
+  - host: ingress1-pchico83.cloud.okteto.net
+    http:
+      paths:
+      - backend:
+          serviceName: world
+          servicePort: 80
+        path: /
+  - host: ingress2-pchico83.cloud.okteto.net
+    http:
+      paths:
+      - backend:
+          serviceName: udemy
+          servicePort: 80
+        path: /
+  tls:
+  - hosts:
+    - ingress1-pchico83.cloud.okteto.net
+    - ingress2-pchico83.cloud.okteto.net
+
+---  
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: world
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: world
+    
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: world
+  labels:
+    app: world
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: world
+  template:
+    metadata:
+      labels:
+        app: world
+    spec:
+      volumes:
+      - name: shared-data
+        emptyDir: {}
+      initContainers:
+      - name: content
+        image: alpine
+        volumeMounts:
+        - name: shared-data
+          mountPath: /pod-data
+        command: ["sh"]
+        args: ["-c", "echo Hello World! > /pod-data/index.html"]
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: shared-data
+          mountPath: /usr/share/nginx/html
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: udemy
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: udemy
+    
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: udemy
+  labels:
+    app: udemy
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: udemy
+  template:
+    metadata:
+      labels:
+        app: udemy
+    spec:
+      volumes:
+      - name: shared-data
+        emptyDir: {}
+      initContainers:
+      - name: content
+        image: alpine
+        volumeMounts:
+        - name: shared-data
+          mountPath: /pod-data
+        command: ["sh"]
+        args: ["-c", "echo Hello Udemy! > /pod-data/index.html"]
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: shared-data
+          mountPath: /usr/share/nginx/html

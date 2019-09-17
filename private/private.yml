@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: private
+  annotations:
+    dev.okteto.com/auto-ingress: "true"
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: private
+    
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: private
+  labels:
+    app: private
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: private
+  template:
+    metadata:
+      labels:
+        app: private
+    spec:
+      imagePullSecrets:
+      - name: regcred
+      volumes:
+      - name: shared-data
+        emptyDir: {}
+      initContainers:
+      - name: content
+        image: alpine
+        volumeMounts:
+        - name: shared-data
+          mountPath: /pod-data
+        command: ["sh"]
+        args: ["-c", "echo Container: $HOSTNAME > /pod-data/index.html"]
+      containers:
+      - name: nginx
+        image: pchico83/nginx
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: shared-data
+          mountPath: /usr/share/nginx/html
+
