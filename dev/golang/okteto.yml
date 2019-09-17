@@ -1,5 +1,5 @@
 name: hello-world
-image: okteto/udemy:hello-world-dev
+image: pchico83/udemy:hello-world-dev
 workdir: /src
 command: ["bash"]
 volumes:

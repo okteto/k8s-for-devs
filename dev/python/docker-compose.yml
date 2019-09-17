@@ -1,5 +1,5 @@
 version: '3.7'
 services:
   vote:
-    image: okteto/udemy:vote
+    image: pchico83/udemy:vote
     build: .
