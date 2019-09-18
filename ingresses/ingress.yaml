@@ -10,14 +10,14 @@ spec:
     http:
       paths:
       - backend:
-          serviceName: world
+          serviceName: mundo
           servicePort: 80
         path: /
   - host: ingress2-pchico83.cloud.okteto.net
     http:
       paths:
       - backend:
-          serviceName: udemy
+          serviceName: alumnos
           servicePort: 80
         path: /
   tls:
@@ -30,32 +30,32 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: world
+  name: mundo
 spec:
   type: ClusterIP
   ports:
   - port: 80
     targetPort: 80
   selector:
-    app: world
+    app: mundo
     
 ---
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: world
+  name: mundo
   labels:
-    app: world
+    app: mundo
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: world
+      app: mundo
   template:
     metadata:
       labels:
-        app: world
+        app: mundo
     spec:
       volumes:
       - name: shared-data
@@ -67,7 +67,7 @@ spec:
         - name: shared-data
           mountPath: /pod-data
         command: ["sh"]
-        args: ["-c", "echo Hello World! > /pod-data/index.html"]
+        args: ["-c", "echo Hola Mundo! > /pod-data/index.html"]
       containers:
       - name: nginx
         image: nginx
@@ -82,32 +82,32 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: udemy
+  name: alumnos
 spec:
   type: ClusterIP
   ports:
   - port: 80
     targetPort: 80
   selector:
-    app: udemy
+    app: alumnos
     
 ---
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: udemy
+  name: alumnos
   labels:
-    app: udemy
+    app: alumnos
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: udemy
+      app: alumnos
   template:
     metadata:
       labels:
-        app: udemy
+        app: alumnos
     spec:
       volumes:
       - name: shared-data
@@ -119,7 +119,7 @@ spec:
         - name: shared-data
           mountPath: /pod-data
         command: ["sh"]
-        args: ["-c", "echo Hello Udemy! > /pod-data/index.html"]
+        args: ["-c", "echo Hola Alumnos! > /pod-data/index.html"]
       containers:
       - name: nginx
         image: nginx

@@ -2,7 +2,7 @@ apiVersion: skaffold/v1beta14
 kind: Config
 build:
   artifacts:
-  - image: pchico83/udemy
+  - image: pchico83/alumnos
   local:
     push: true
 deploy:

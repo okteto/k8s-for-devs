@@ -19,9 +19,9 @@ spec:
         image: nginx
         ports:
         - containerPort: 80
-      volumeMounts:
-      - name: data
-        mountPath: /etc/mount-config
+        volumeMounts:
+        - name: data
+          mountPath: /etc/mount-config
       volumes:
         - name: data
           configMap:

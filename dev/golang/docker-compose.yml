@@ -1,10 +1,10 @@
 version: '3.7'
 services:
   hello-world:
-    image: pchico83/udemy:hello-world
+    image: pchico83/alumnos:hello-world
     build: .
   dev:
-    image: pchico83/udemy:hello-world-dev
+    image: pchico83/alumnos:hello-world-dev
     build:
       context: .
       target: builder

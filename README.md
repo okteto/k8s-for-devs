@@ -1,2 +1,2 @@
 # k8s-for-devs
-Udemy - Kubernetes para Desarrolladores 
+Kubernetes para Desarrolladores 

@@ -29,5 +29,5 @@ spec:
         app: vote
     spec:
       containers:
-      - image: pchico83/udemy:vote
+      - image: pchico83/alumnos:vote
         name: vote

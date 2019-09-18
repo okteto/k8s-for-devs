@@ -24,7 +24,4 @@ spec:
           valueFrom:
             configMapKeyRef:
               name: sample
-              key: k2
-#        envFrom:
-#          - configMapRef:
-#              name: sample
+              key: key2
