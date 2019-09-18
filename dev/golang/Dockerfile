@@ -1,5 +1,5 @@
 FROM golang:alpine as builder
-RUN apk --update add --no-cache bash
+RUN apk --update add --no-cache bash curl coreutils
 WORKDIR /app
 ADD . .
 RUN go build

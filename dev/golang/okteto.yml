@@ -1,8 +1,8 @@
 name: hello-world
-image: pchico83/alumnos:hello-world-dev
-workdir: /src
+image: okteto/golang:1
+mountpath: /app
 command: ["bash"]
 volumes:
-  - /go/pkg
+  - /go
   - /root/.cache/go-build
   - /root/.vscode-server
