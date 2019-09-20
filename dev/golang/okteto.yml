@@ -6,3 +6,7 @@ volumes:
   - /go
   - /root/.cache/go-build
   - /root/.vscode-server
+resources:
+  limits:
+    cpu: 2
+    memory: 4Gi
