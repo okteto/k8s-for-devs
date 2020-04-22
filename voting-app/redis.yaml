@@ -35,6 +35,10 @@ spec:
         volumeMounts:
         - mountPath: /data
           name: data
+        resources:
+          limits:
+            cpu: 200m
+            memory: 256Mi
       volumes:
       - name: data
         emptyDir: {} 

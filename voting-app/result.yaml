@@ -33,3 +33,7 @@ spec:
         name: result
         ports:
         - containerPort: 80
+        resources:
+          limits:
+            cpu: 200m
+            memory: 256Mi
