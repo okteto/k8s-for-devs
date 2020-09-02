@@ -1,5 +1,6 @@
 name: vote
-workdir: /src
-command: ["python", "app.py"]
 environment:
   - FLASK_ENV=development
+command: ["python", "app.py"]
+sync:
+  - .:/src
